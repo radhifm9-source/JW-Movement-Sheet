@@ -14,8 +14,6 @@ body{
   color:#1f2933;
   box-sizing:border-box;
 }
-
-/* Header with logo + title */
 .header{
   display:flex;
   flex-direction:column;
@@ -28,27 +26,20 @@ body{
 .header-logo{
   height:48px;
   width:auto;
-  object-fit:contain;
 }
 .header-title{
   font-size:20px;
   font-weight:bold;
   color:#003b5c;
-  margin:0;
 }
-
-/* Card layout */
 .card{
   background:#ffffff;
   padding:14px 16px;
   border-radius:10px;
   margin-bottom:16px;
   box-shadow:0 4px 10px rgba(0,0,0,0.04);
-  border:1px solid #e5e7eb;           /* subtle border */
-  border-left:5px solid #003b5c;      /* accent */
-}
-.card + .card{
-  margin-top:12px;
+  border:1px solid #e5e7eb;
+  border-left:5px solid #003b5c;
 }
 h3{
   margin:0 0 8px 0;
@@ -70,23 +61,11 @@ input, select, textarea{
   font-size:14px;
   box-sizing:border-box;
 }
-
-/* Numeric counts grid */
 .count-grid{
   display:grid;
   grid-template-columns:repeat(4, minmax(0, 1fr));
   gap:10px;
 }
-.count-input{
-  width:70px;
-  text-align:center;
-}
-.count-wrapper{
-  display:flex;
-  flex-direction:column;
-}
-
-/* WhatsApp preview */
 .preview{
   background:#0f172a;
   color:#22c55e;
@@ -97,64 +76,35 @@ input, select, textarea{
   white-space:pre-line;
   min-height:60px;
 }
-
-/* Buttons */
-.whatsapp-btns{
-  display:flex;
-  gap:10px;
-  margin-top:15px;
-}
 button{
-  flex:1;
-  padding:10px;
+  width:100%;
+  padding:12px;
   border:none;
   border-radius:6px;
   background:#003b5c;
   color:white;
-  font-size:14px;
+  font-size:15px;
   cursor:pointer;
 }
-button:active{
-  opacity:0.8;
-}
-
-/* Mobile spacing & layout improvements */
+button:active{opacity:0.85;}
 @media (max-width:600px){
-  body{
-    padding:12px;
-  }
-  .card{
-    padding:12px 12px;
-    border-radius:8px;
-  }
-  .count-grid{
-    grid-template-columns:repeat(2, minmax(0, 1fr));
-  }
-  .header-title{
-    font-size:18px;
-  }
+  .count-grid{grid-template-columns:repeat(2,1fr);}
 }
 </style>
 </head>
 
 <body>
 
-<!-- Header with logo + title -->
 <div class="header">
-  <!-- Replace src with your actual logo path or URL -->
-  <img src="logo.png" alt="JW Marriott Maldives Resort & Spa" class="header-logo">
+  <img src="logo.png" class="header-logo">
   <h1 class="header-title">Arrival / Departure Movement Sheet</h1>
 </div>
 
-<!-- DATE & OFFICER -->
 <div class="card">
   <label>Date</label>
-  <input type="date" id="date" oninput="updatePreview()" onchange="updatePreview()">
-
+  <input type="date" id="date" oninput="updatePreview()">
   <label>Security Officer</label>
-  <input type="text" id="officer" placeholder="e.g., Dhan"
-         oninput="updatePreview()" onchange="updatePreview()">
-
+  <input type="text" id="officer" oninput="updatePreview()">
   <label>Jetty</label>
   <select id="jetty" onchange="updatePreview()">
     <option>Arrival Jetty</option>
@@ -163,278 +113,109 @@ button:active{
   </select>
 </div>
 
-<!-- ARRIVAL MOVEMENT -->
+<!-- ARRIVAL -->
 <div class="card">
   <h3>Arrival Movement</h3>
-
-  <label>Time</label>
-  <input type="time" id="timeArrival"
-         oninput="updatePreview()" onchange="updatePreview()">
-
+  <input type="time" id="timeArrival" oninput="updatePreview()">
   <div class="count-grid">
-    <div class="count-wrapper">
-      <label>Crew</label>
-      <input type="number" id="crewA" class="count-input"
-             oninput="updatePreview()" onchange="updatePreview()">
-    </div>
-    <div class="count-wrapper">
-      <label>Guests</label>
-      <input type="number" id="guestsA" class="count-input"
-             oninput="updatePreview()" onchange="updatePreview()">
-    </div>
-    <div class="count-wrapper">
-      <label>Associates</label>
-      <input type="number" id="associatesA" class="count-input"
-             oninput="updatePreview()" onchange="updatePreview()">
-    </div>
-    <div class="count-wrapper">
-      <label>Contractor / Visitor / Vendor</label>
-      <input type="number" id="contractorCountA" class="count-input"
-             oninput="updatePreview()" onchange="updatePreview()">
-    </div>
+    <input type="number" id="crewA" placeholder="Crew" oninput="updatePreview()">
+    <input type="number" id="guestsA" placeholder="Guests" oninput="updatePreview()">
+    <input type="number" id="associatesA" placeholder="Associates" oninput="updatePreview()">
+    <input type="number" id="contractorCountA" placeholder="Contractor / Visitor / Vendor" oninput="updatePreview()">
   </div>
-
-  <label>Vessel / Flight</label>
-  <input type="text" id="vesselA" placeholder="e.g., Speed Boat Name"
-         oninput="updatePreview()" onchange="updatePreview()">
-
-  <label>From</label>
-  <input type="text" id="fromA" placeholder="e.g., Male'"
-         oninput="updatePreview()" onchange="updatePreview()">
-
-  <label>Purpose</label>
-  <input type="text" id="purposeA" placeholder="e.g., Guests, Associate, Visitor Arrival"
-         oninput="updatePreview()" onchange="updatePreview()">
-
-  <label>Associate & Department</label>
-  <textarea id="associateDeptA" placeholder="e.g., Ahmed Zahir (F&B)"
-            oninput="updatePreview()" onchange="updatePreview()"></textarea>
-
-  <label>Contractor / Visitor / Vendor - Company & Pass No</label>
-  <textarea id="contractorA" placeholder="e.g., Karthik (Gage) - Pass No 1"
-            oninput="updatePreview()" onchange="updatePreview()"></textarea>
-
-  <label>Luggage</label>
-  <input type="text" id="luggageA" placeholder="e.g., Total Luggage 10"
-         oninput="updatePreview()" onchange="updatePreview()">
-
-  <label>Remarks</label>
-  <textarea id="remarksA"
-            placeholder="e.g., Day Shutdown Flight, Overnight Flight, Water Sample Box Sent to Male'"
-            oninput="updatePreview()" onchange="updatePreview()"></textarea>
+  <input type="text" id="vesselA" placeholder="Vessel / Flight" oninput="updatePreview()">
+  <input type="text" id="fromA" placeholder="From" oninput="updatePreview()">
+  <input type="text" id="purposeA" placeholder="Purpose" oninput="updatePreview()">
+  <textarea id="associateDeptA" placeholder="Associate & Department" oninput="updatePreview()"></textarea>
+  <textarea id="contractorA" placeholder="Contractor Details" oninput="updatePreview()"></textarea>
+  <input type="text" id="luggageA" placeholder="Luggage" oninput="updatePreview()">
+  <textarea id="remarksA" placeholder="Remarks" oninput="updatePreview()"></textarea>
 </div>
 
-<!-- DEPARTURE MOVEMENT -->
+<!-- DEPARTURE -->
 <div class="card">
   <h3>Departure Movement</h3>
-
-  <label>Time</label>
-  <input type="time" id="timeD"
-         oninput="updatePreview()" onchange="updatePreview()">
-
+  <input type="time" id="timeD" oninput="updatePreview()">
   <div class="count-grid">
-    <div class="count-wrapper">
-      <label>Crew</label>
-      <input type="number" id="crewD" class="count-input"
-             oninput="updatePreview()" onchange="updatePreview()">
-    </div>
-    <div class="count-wrapper">
-      <label>Guests</label>
-      <input type="number" id="guestsD" class="count-input"
-             oninput="updatePreview()" onchange="updatePreview()">
-    </div>
-    <div class="count-wrapper">
-      <label>Associates</label>
-      <input type="number" id="associatesD" class="count-input"
-             oninput="updatePreview()" onchange="updatePreview()">
-    </div>
-    <div class="count-wrapper">
-      <label>Contractor / Visitor / Vendor</label>
-      <input type="number" id="contractorCountD" class="count-input"
-             oninput="updatePreview()" onchange="updatePreview()">
-    </div>
+    <input type="number" id="crewD" placeholder="Crew" oninput="updatePreview()">
+    <input type="number" id="guestsD" placeholder="Guests" oninput="updatePreview()">
+    <input type="number" id="associatesD" placeholder="Associates" oninput="updatePreview()">
+    <input type="number" id="contractorCountD" placeholder="Contractor / Visitor / Vendor" oninput="updatePreview()">
   </div>
-
-  <label>Vessel / Flight</label>
-  <input type="text" id="vesselD" placeholder="e.g., Speed Boat Name"
-         oninput="updatePreview()" onchange="updatePreview()">
-
-  <label>To</label>
-  <input type="text" id="toD" placeholder="e.g., Male'"
-         oninput="updatePreview()" onchange="updatePreview()">
-
-  <label>Purpose</label>
-  <input type="text" id="purposeD" placeholder="e.g., Guests, Associate, Visitor Arrival"
-         oninput="updatePreview()" onchange="updatePreview()">
-
-  <label>Associate & Department</label>
-  <textarea id="associateDeptD" placeholder="e.g., Ahmed Zahir (F&B)"
-            oninput="updatePreview()" onchange="updatePreview()"></textarea>
-
-  <label>Contractor / Visitor / Vendor - Company & Pass No</label>
-  <textarea id="contractorD" placeholder="e.g., Karthik (Gage) - Pass No 1"
-            oninput="updatePreview()" onchange="updatePreview()"></textarea>
-
-  <label>Luggage</label>
-  <input type="text" id="luggageD" placeholder="e.g., Total Luggage 10"
-         oninput="updatePreview()" onchange="updatePreview()">
-
-  <label>Remarks</label>
-  <textarea id="remarksD"
-            placeholder="e.g., Day Shutdown Flight, Overnight Flight, Water Sample Box Sent to Male'"
-            oninput="updatePreview()" onchange="updatePreview()"></textarea>
+  <input type="text" id="vesselD" placeholder="Vessel / Flight" oninput="updatePreview()">
+  <input type="text" id="toD" placeholder="To" oninput="updatePreview()">
+  <input type="text" id="purposeD" placeholder="Purpose" oninput="updatePreview()">
+  <textarea id="associateDeptD" placeholder="Associate & Department" oninput="updatePreview()"></textarea>
+  <textarea id="contractorD" placeholder="Contractor Details" oninput="updatePreview()"></textarea>
+  <input type="text" id="luggageD" placeholder="Luggage" oninput="updatePreview()">
+  <textarea id="remarksD" placeholder="Remarks" oninput="updatePreview()"></textarea>
 </div>
 
-<!-- WHATSAPP PREVIEW -->
 <div class="card">
-  <h3>Live WhatsApp Preview</h3>
+  <h3>Official Preview</h3>
   <div class="preview" id="preview"></div>
+</div>
 
-  <div class="whatsapp-btns">
-    <button type="button" onclick="sendWhatsApp()">Send to WhatsApp</button>
-    <button type="button" onclick="sendWhatsApp()">Send to WhatsApp Business</button>
-  </div>
+<div class="card">
+  <button onclick="submitMovement()">SUBMIT MOVEMENT</button>
 </div>
 
 <script>
-// Simple trim for compatibility
-function trimString(str){
-  if (!str) return "";
-  return str.replace(/^\s+|\s+$/g, "");
-}
+var ZAPIER_HOOK_URL = "PASTE_YOUR_ZAPIER_HOOK_URL_HERE";
 
-function getVal(id){
-  var el = document.getElementById(id);
-  if (!el) return "";
-  return trimString(el.value);
-}
-
-function addLine(label, value){
-  value = trimString(value);
-  return value ? label + ": " + value + "\n" : "";
-}
-
-function addBlock(title, value){
-  value = trimString(value);
-  return value ? title + ":\n" + value + "\n" : "";
-}
-
-function sectionHasData(values){
-  for (var i = 0; i < values.length; i++){
-    if (trimString(values[i]) !== "") return true;
-  }
-  return false;
-}
+function trimString(s){return s?s.trim():"";}
+function getVal(id){var e=document.getElementById(id);return e?trimString(e.value):"";}
 
 function updatePreview(){
-  var msg = "";
+  var msg="";
+  if(getVal("date")) msg+="Date: "+getVal("date")+"\n";
+  if(getVal("officer")) msg+="Security Officer: "+getVal("officer")+"\n";
+  msg+="Jetty: "+getVal("jetty")+"\n";
 
-  // HEADER
-  var dateVal    = getVal("date");
-  var officerVal = getVal("officer");
-  var jettyVal   = getVal("jetty");
-
-  if (dateVal || officerVal || jettyVal){
-    if (dateVal)    msg += "Date: " + dateVal + "\n";
-    if (officerVal) msg += "Security Officer: " + officerVal + "\n";
-    if (jettyVal)   msg += "Jetty: " + jettyVal + "\n";
+  if(getVal("timeArrival")){
+    msg+="\n--- ARRIVAL ---\n";
+    msg+="Time: "+getVal("timeArrival")+"\n";
+    msg+="Crew: "+getVal("crewA")+"\n";
+    msg+="Guests: "+getVal("guestsA")+"\n";
+    msg+="Associates: "+getVal("associatesA")+"\n";
+    msg+="Contractor / Visitor / Vendor: "+getVal("contractorCountA")+"\n";
   }
 
-  // ARRIVAL VALUES
-  var timeArrivalVal      = getVal("timeArrival");
-  var crewAVal            = getVal("crewA");
-  var guestsAVal          = getVal("guestsA");
-  var associatesAVal      = getVal("associatesA");
-  var contractorCountAVal = getVal("contractorCountA");
-  var vesselAVal          = getVal("vesselA");
-  var fromAVal            = getVal("fromA");
-  var purposeAVal         = getVal("purposeA");
-  var associateDeptAVal   = getVal("associateDeptA");
-  var contractorAVal      = getVal("contractorA");
-  var luggageAVal         = getVal("luggageA");
-  var remarksAVal         = getVal("remarksA");
-
-  var arrivalFields = [
-    timeArrivalVal, crewAVal, guestsAVal, associatesAVal, contractorCountAVal,
-    vesselAVal, fromAVal, purposeAVal,
-    associateDeptAVal, contractorAVal, luggageAVal, remarksAVal
-  ];
-
-  if (sectionHasData(arrivalFields)){
-    msg += "\n--- ARRIVAL ---\n";
-    msg += addLine("Time", timeArrivalVal);
-    msg += addLine("Crew", crewAVal);
-    msg += addLine("Guests", guestsAVal);
-    msg += addLine("Associates", associatesAVal);
-    msg += addLine("Contractor / Visitor / Vendor", contractorCountAVal);
-    msg += addLine("Vessel / Flight", vesselAVal);
-    msg += addLine("From", fromAVal);
-    msg += addLine("Purpose", purposeAVal);
-    msg += addBlock("Associate & Dept", associateDeptAVal);
-    msg += addBlock("Contractor Details", contractorAVal);
-    msg += addLine("Luggage", luggageAVal);
-    msg += addLine("Remarks", remarksAVal);
+  if(getVal("timeD")){
+    msg+="\n--- DEPARTURE ---\n";
+    msg+="Time: "+getVal("timeD")+"\n";
+    msg+="Crew: "+getVal("crewD")+"\n";
+    msg+="Guests: "+getVal("guestsD")+"\n";
+    msg+="Associates: "+getVal("associatesD")+"\n";
+    msg+="Contractor / Visitor / Vendor: "+getVal("contractorCountD")+"\n";
   }
 
-  // DEPARTURE VALUES
-  var timeDVal            = getVal("timeD");
-  var crewDVal            = getVal("crewD");
-  var guestsDVal          = getVal("guestsD");
-  var associatesDVal      = getVal("associatesD");
-  var contractorCountDVal = getVal("contractorCountD");
-  var vesselDVal          = getVal("vesselD");
-  var toDVal              = getVal("toD");
-  var purposeDVal         = getVal("purposeD");
-  var associateDeptDVal   = getVal("associateDeptD");
-  var contractorDVal      = getVal("contractorD");
-  var luggageDVal         = getVal("luggageD");
-  var remarksDVal         = getVal("remarksD");
-
-  var departureFields = [
-    timeDVal, crewDVal, guestsDVal, associatesDVal, contractorCountDVal,
-    vesselDVal, toDVal, purposeDVal,
-    associateDeptDVal, contractorDVal, luggageDVal, remarksDVal
-  ];
-
-  if (sectionHasData(departureFields)){
-    msg += "\n--- DEPARTURE ---\n";
-    msg += addLine("Time", timeDVal);
-    msg += addLine("Crew", crewDVal);
-    msg += addLine("Guests", guestsDVal);
-    msg += addLine("Associates", associatesDVal);
-    msg += addLine("Contractor / Visitor / Vendor", contractorCountDVal);
-    msg += addLine("Vessel / Flight", vesselDVal);
-    msg += addLine("To", toDVal);
-    msg += addLine("Purpose", purposeDVal);
-    msg += addBlock("Associate & Dept", associateDeptDVal);
-    msg += addBlock("Contractor Details", contractorDVal);
-    msg += addLine("Luggage", luggageDVal);
-    msg += addLine("Remarks", remarksDVal);
-  }
-
-  document.getElementById("preview").innerText = trimString(msg);
+  document.getElementById("preview").innerText=msg.trim();
 }
 
-// Single handler for both buttons
-function sendWhatsApp(){
-  var previewEl = document.getElementById("preview");
-  if (!previewEl) return;
-
-  var text = trimString(previewEl.innerText);
-  if (!text){
-    alert("Please fill some details first. Preview is empty.");
+function submitMovement(){
+  if(!document.getElementById("preview").innerText){
+    alert("Please fill in movement details.");
     return;
   }
-
-  var encoded = encodeURIComponent(text);
-
-  // WhatsApp URL (web version works on most phones)
-  var webUrl = "https://wa.me/?text=" + encoded;
-  window.location.href = webUrl;
+  fetch(ZAPIER_HOOK_URL,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      date:getVal("date"),
+      officer:getVal("officer"),
+      jetty:getVal("jetty"),
+      arrival_associates:getVal("associatesA"),
+      arrival_contractors:getVal("contractorCountA"),
+      departure_associates:getVal("associatesD"),
+      departure_contractors:getVal("contractorCountD"),
+      message:document.getElementById("preview").innerText
+    })
+  });
+  alert("Movement submitted successfully.");
+  document.querySelectorAll("input,textarea").forEach(e=>e.value="");
+  updatePreview();
 }
-
-// Ensure preview is clean on initial load
-updatePreview();
 </script>
 
 </body>
